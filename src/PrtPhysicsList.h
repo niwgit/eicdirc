@@ -47,6 +47,7 @@ class PrtPhysicsList : public G4VUserPhysicsList {
   G4OpRayleigh *fRayleighScatteringProcess;
   G4OpMieHG *fMieHGScatteringProcess;
   G4OpBoundaryProcess *fBoundaryProcess;
+  G4OpBoundaryProcess *G4BoundaryProcess;
 
   PrtPhysicsListMessenger *fMessenger;
   

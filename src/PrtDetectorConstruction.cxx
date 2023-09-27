@@ -54,8 +54,8 @@ PrtDetectorConstruction::PrtDetectorConstruction() : G4VUserDetectorConstruction
   fTest2 = fRun->getTest2();
   fTest3 = fRun->getTest3();
 
-  fNRow = 6;
-  fNCol = 4;
+  fNRow = 1;
+  fNCol = 1;
   if (fNBar < 0) fNBar = 1;
 
   fHall[0] = 1500;
@@ -757,25 +757,27 @@ G4VPhysicalVolume *PrtDetectorConstruction::Construct() {
     // fMcpActive[1]= fMcpTotal[1];
     // fMcpActive[0]= fMcpTotal[0];
 
-    G4Box *gMcp = new G4Box("gMcp", fMcpTotal[0] / 2., fMcpTotal[1] / 2., fMcpTotal[2] / 2.);
+    //G4Box *gMcp = new G4Box("gMcp", fMcpTotal[0] / 2., fMcpTotal[1] / 2., fMcpTotal[2] / 2.);
+    G4Box* gMcp = new G4Box("gMcp", 0.5*fFd[1], 0.5*fFd[0], 0.5*fFd[2]);
     lMcp = new G4LogicalVolume(gMcp, BarMaterial, "lMcp", 0, 0, 0);
 
     // double pixSize = 6*mm;
     // fNpix1 = 32; // fMcpActive[1]/pixSize-1;
     // fNpix2 = 32; // fMcpActive[1]/pixSize-1;
 
-    fNpix1 = 16;
-    fNpix2 = 16;
+    fNpix1 = 1;
+    fNpix2 = 1;
     fRun->setNpix(fNpix1 * fNpix1);
     // fRun->setTest2(fMcpActive[0] / fNpix1);
     // fRun->setNpix(fNpix1 * fNpix1);
 
     std::cout << "fNpix1=" << fNpix1 << " fNpix2=" << fNpix2 << " size = " << fMcpActive[0] / fNpix1
-              << std::endl;
+            << std::endl;
 
     // The MCP Pixel
-    G4Box *gPixel =
-      new G4Box("gPixel", 0.5 * fMcpActive[0] / fNpix1, 0.5 * fMcpActive[1] / fNpix2, 0.01);
+    //G4Box *gPixel =
+      //new G4Box("gPixel", 0.5 * fMcpActive[0] / fNpix1, 0.5 * fMcpActive[1] / fNpix2, 0.01);
+    G4Box* gPixel = new G4Box("gPixel", 0.5*fFd[1], 0.5*fFd[0], 0.5*fFd[2]);
     lPixel = new G4LogicalVolume(gPixel, BarMaterial, "lPixel", 0, 0, 0);
 
     for (int i = 0; i < fNpix1; i++) {

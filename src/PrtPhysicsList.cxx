@@ -446,6 +446,7 @@ void PrtPhysicsList::ConstructOp() {
   fRayleighScatteringProcess = new G4OpRayleigh();
   fMieHGScatteringProcess = new G4OpMieHG();
   fBoundaryProcess = new PrtOpBoundaryProcess();
+  G4BoundaryProcess = new G4OpBoundaryProcess();
 
   //  fCerenkovProcess->DumpPhysicsTable();
   //  fScintillationProcess->DumpPhysicsTable();
@@ -453,7 +454,7 @@ void PrtPhysicsList::ConstructOp() {
 
   SetVerbose(0);
 
-  fCerenkovProcess->SetMaxNumPhotonsPerStep(20);
+  fCerenkovProcess->SetMaxNumPhotonsPerStep(10);
   fCerenkovProcess->SetMaxBetaChangePerStep(10.0);
   fCerenkovProcess->SetTrackSecondariesFirst(true);
 
@@ -496,7 +497,8 @@ void PrtPhysicsList::ConstructOp() {
       pmanager->AddDiscreteProcess(fAbsorptionProcess);
       pmanager->AddDiscreteProcess(fRayleighScatteringProcess);
       pmanager->AddDiscreteProcess(fMieHGScatteringProcess);
-      pmanager->AddDiscreteProcess(fBoundaryProcess);
+      //pmanager->AddDiscreteProcess(fBoundaryProcess);
+      pmanager->AddDiscreteProcess(G4BoundaryProcess);
     }
   }
 }

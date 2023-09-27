@@ -116,7 +116,7 @@ G4ClassificationOfNewTrack PrtStackingAction::ClassifyNewTrack(const G4Track *aT
     }
   }
 
-  if (fRunType == 0 || fRunType == 5 || fRunType == 10) { // for the simulation run
+  /*if (fRunType == 0 || fRunType == 5 || fRunType == 10) { // for the simulation run
 
     if (aTrack->GetDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()) {
 
@@ -131,13 +131,13 @@ G4ClassificationOfNewTrack PrtStackingAction::ClassifyNewTrack(const G4Track *aT
         double ra = gRandom->Uniform(0., 1.);
         if (ra > fDetEff[1]->Eval(lambda)) {
           return fKill;
-        }
+	  }
       }
 
       // double angle = aTrack->GetMomentum().angle(G4ThreeVector(0, 0, 1));
       // if(angle > 0.3) return fKill;
     }
-  }
+    }*/
 
   return fUrgent;
 }

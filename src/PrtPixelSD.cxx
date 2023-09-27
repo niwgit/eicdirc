@@ -34,7 +34,7 @@ PrtPixelSD::PrtPixelSD(const G4String &name, const G4String &hitsCollectionName)
     int mcp = ch / npix;
     int pix = ch % npix;
     fMap_Mpc[mcp][pix] = ch;
-  }
+    }
 }
 
 PrtPixelSD::~PrtPixelSD() {}
@@ -158,7 +158,7 @@ G4bool PrtPixelSD::ProcessHits(G4Step *step, G4TouchableHistory *hist) {
   bool transport_efficiency(true);
   if (transport_efficiency) {
     double pi(4 * atan(1));
-    double roughness(0.5); // nm
+    double roughness(0); // nm
     double angleX = localvec.angle(G4ThreeVector(1, 0, 0));
     double angleY = localvec.angle(G4ThreeVector(0, 1, 0));
     if (angleX > 0.5 * pi) angleX = pi - angleX;

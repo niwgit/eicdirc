@@ -777,7 +777,7 @@ G4VPhysicalVolume *PrtDetectorConstruction::Construct() {
     // The MCP Pixel
     //G4Box *gPixel =
       //new G4Box("gPixel", 0.5 * fMcpActive[0] / fNpix1, 0.5 * fMcpActive[1] / fNpix2, 0.01);
-    G4Box* gPixel = new G4Box("gPixel", 0.5*fFd[1], 0.5*fFd[0], 0.5*fFd[2]);
+    G4Box* gPixel = new G4Box("gPixel", 0.5*fFd[1], 0.5*fFd[0], 0.1*fFd[2]);
     lPixel = new G4LogicalVolume(gPixel, BarMaterial, "lPixel", 0, 0, 0);
 
     for (int i = 0; i < fNpix1; i++) {

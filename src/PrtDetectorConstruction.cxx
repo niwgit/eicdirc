@@ -104,9 +104,10 @@ PrtDetectorConstruction::PrtDetectorConstruction() : G4VUserDetectorConstruction
     fNBoxes = 12;
     fRadius = 700 + 0.5 * fBar[0]; // old = 729.6;
     fNBar = 10;
-    fBar[2] = 1225; // BaBar bars
-    fBar[1] = 35;
-    fPrizm[0] = 350 + 1.35;
+    //fBar[2] = 1225; // BaBar bars
+    //fBar[1] = 35;
+    //fPrizm[0] = 350 + 1.35;
+    fBar[2] = 1101.45;
   }
 
   if (fGeomType == 2 || fGeomType == 12) { // CORE
@@ -128,11 +129,12 @@ PrtDetectorConstruction::PrtDetectorConstruction() : G4VUserDetectorConstruction
   std::cout << "fBoxWidth/Prism  " << fBoxWidth<<" x "<< fPrizm[2] << std::endl;
 
   fBar[0] = 17; //fTest1;
-  // fBar[1] = (fPrizm[0] - (fNBar - 1) * fBarsGap) / fNBar;
-  // std::cout << "bar width " << fBar[1]<< std::endl;
+  fBar[1] = (fPrizm[0] - (fNBar - 1) * fBarsGap) / fNBar;
+  std::cout << "bar width " << fBar[1]<< std::endl;
   
 
-  fMirror[0] = fBar[0] + 1;
+  //fMirror[0] = fBar[0] + 1;
+  fMirror[0] = 20;
   fMirror[1] = fPrizm[0];
   fMirror[2] = 1;
 
@@ -219,7 +221,8 @@ G4VPhysicalVolume *PrtDetectorConstruction::Construct() {
 
   double tphi, dphi = 360 * deg / (double)fNBoxes;
 
-  double center_shift = 630; // makes end at -182
+  //double center_shift = 630; // makes end at -182
+  double center_shift = 510;
   if (fRunType == 1) {
     // LUT
     new G4PVPlacement(0, G4ThreeVector(0, 0, center_shift), lDirc, "wDirc", lExpHall, false, 0);

@@ -94,7 +94,8 @@ void PrtPrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent) {
     
     if (fGeomType < 2) ypos = 0.5 * fRadiatorW;
     
-    fParticleGun->SetParticlePosition(G4ThreeVector(0, ypos, zpos));
+    //fParticleGun->SetParticlePosition(G4ThreeVector(0, ypos, zpos));
+    fParticleGun->SetParticlePosition(G4ThreeVector(0, 17.5075, zpos));
 
     // // second track
     // vec.setTheta(theta2);
@@ -145,12 +146,14 @@ void PrtPrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent) {
     if (fRun->getEv() == 1) barShift = 0.5 * 35;
     if (fGeomType == 2) barShift = 0;
 
-    fParticleGun->SetParticlePosition(G4ThreeVector(0, barShift, 0.5 * fRadiatorL + 630 - 0.2));
-    G4ThreeVector v(0, 0, -1);
-    v.setTheta(acos(G4UniformRand()));
+    //fParticleGun->SetParticlePosition(G4ThreeVector(0, barShift, 0.5 * fRadiatorL + 630 - 0.2));
+    fParticleGun->SetParticlePosition(G4ThreeVector(0, barShift, 0.5 * fRadiatorL + 510 - 0.5));
+    //G4ThreeVector v(0, 0, -1);
+    G4ThreeVector v(0, 0, 1); 
+    //v.setTheta(acos(G4UniformRand()));
     // v.setTheta(0.3);
     // v.setPhi( M_PI);
-    v.setPhi(2 * M_PI * G4UniformRand());
+    //v.setPhi(2 * M_PI * G4UniformRand());
 
     fParticleGun->SetParticleMomentumDirection(v);
   }

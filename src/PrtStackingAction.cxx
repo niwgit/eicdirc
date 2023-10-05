@@ -123,7 +123,7 @@ G4ClassificationOfNewTrack PrtStackingAction::ClassifyNewTrack(const G4Track *aT
       // if (aTrack->GetParentID() > 2) return fKill;
 
       // kill opticalphotons from secondaries
-      // if(aTrack->GetParentID() != 1 ) 	  return fKill;
+      if(aTrack->GetParentID() != 1 ) 	  return fKill;
 
       // apply detector efficiency at the production stage:
       if (true) {

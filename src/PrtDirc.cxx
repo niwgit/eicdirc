@@ -248,7 +248,7 @@ int main(int argc, char **argv) {
     G4VModularPhysicsList *physicsList = new FTFP_BERT;
     G4OpticalPhysics *opticalPhysics = new G4OpticalPhysics();
     auto opticalParams = G4OpticalParameters::Instance();
-    opticalParams->SetCerenkovMaxPhotonsPerStep(20);
+    opticalParams->SetCerenkovMaxPhotonsPerStep(10);
     opticalParams->SetCerenkovMaxBetaChange(10.0);
     opticalParams->SetCerenkovTrackSecondariesFirst(true);
     physicsList->RegisterPhysics(opticalPhysics);

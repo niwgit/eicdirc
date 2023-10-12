@@ -123,16 +123,16 @@ G4ClassificationOfNewTrack PrtStackingAction::ClassifyNewTrack(const G4Track *aT
       // if (aTrack->GetParentID() > 2) return fKill;
 
       // kill opticalphotons from secondaries
-      // if(aTrack->GetParentID() != 1 ) 	  return fKill;
+      if(aTrack->GetParentID() != 1 ) return fKill;
 
       // apply detector efficiency at the production stage:
-      if (true) {
+      /*if (true) {
         double lambda = 197.0 * 2.0 * pi / (aTrack->GetMomentum().mag() * 1.0E6);
         double ra = gRandom->Uniform(0., 1.);
         if (ra > fDetEff[1]->Eval(lambda)) {
           return fKill;
 	  }
-      }
+	  }*/
 
       // double angle = aTrack->GetMomentum().angle(G4ThreeVector(0, 0, 1));
       // if(angle > 0.3) return fKill;

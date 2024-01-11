@@ -225,7 +225,7 @@ G4VPhysicalVolume *PrtDetectorConstruction::Construct() {
   double center_shift = 510;
   if (fRunType == 1) {
     // LUT
-    new G4PVPlacement(0, G4ThreeVector(0, 0, center_shift), lDirc, "wDirc", lExpHall, false, 0);
+    new G4PVPlacement(0, G4ThreeVector(0, 0, 0), lDirc, "wDirc", lExpHall, false, 0);
   } else {
     for (int i = 0; i < fNBoxes; i++) {
       tphi = dphi * i;
@@ -1350,7 +1350,8 @@ void PrtDetectorConstruction::ConstructSDandField() {
     } else if (fid == 2) {
       // MARCO 1.7T
       mField = new PrtField(
-        "../data/MARCO_v.6.4.1.1.3_1.7T_Magnetic_Field_Map_2022_11_14_rad_coords_cm_T.CART.txt",
+			    //"../data/MARCO_v.6.4.1.1.3_1.7T_Magnetic_Field_Map_2022_11_14_rad_coords_cm_T.CART.txt",
+			    "/work/eic3/users/nwickjlb/eicdirc_standalone_code_test/eicdirc/data/MARCO_v.6.4.1.1.3_1.7T_Magnetic_Field_Map_2022_11_14_rad_coords_cm_T.CART.txt",
         ZOffset);
     } else if (fid == 3) {
       // MARCO 2.0T

@@ -16,6 +16,7 @@ using std::endl;
 
 TH1F *fHist1 = new TH1F("Time1", "1", 1000, 0, 80);
 TH1F *fHist2 = new TH1F("Time2", "2", 1000, -10, 10);
+TH1F *fHist_leadtime = new TH1F("leadtime",";LE time [ns]; entries [#]", 2000, 0, 100);
 TH1F *fHistDiff[3];
 TH2F *fDiff =
   new TH2F("diff", ";measured time [ns];t_{measured}-t_{calc} [ns]", 500, 0, 100, 150, -5, 5);
@@ -348,6 +349,7 @@ void PrtLutReco::Run(int start, int end) {
     for (auto hit : fEvent->getHits()) {
 
       hitTime = hit.getLeadTime() + gRandom->Gaus(0, timeRes);
+      if(pid == 2) fHist_leadtime->Fill(hitTime);
       dirz = hit.getMomentum().Z();
       int mcp = hit.getPmt();
       int pix = hit.getPixel();
@@ -798,6 +800,11 @@ void PrtLutReco::Run(int start, int end) {
       std::cout << "rejection " << epi_rejection2 << std::endl;
       std::cout << "rejection " << epi_rejection3 << std::endl;
 
+      std::cout << "mean1 = " << m1 << " +/- " << dm1 << std::endl;
+      std::cout << "mean2 = " << m2 << " +/- " << dm2 <<std::endl;
+      std::cout << "sigma1 = " << s1 << " +/- " << ds1 <<std::endl;
+      std::cout << "sigma2 = " << s2 << " +/- " << ds2 <<std::endl;
+
       sep_ti = (fabs(m1 - m2)) / (0.5 * (s1 + s2));
 
       e1 = 2 / (s1 + s2) * dm1;
@@ -943,6 +950,7 @@ void PrtLutReco::Run(int start, int end) {
 
   if (fVerbose > 1) {
     TString nid = Form("_%d_%1.2f_%1.4f_%1.2f", fp1, frun->getTheta(), test1, mom);
+    TString nidpip = Form("_%d_%1.2f_%1.4f_%1.2f", fp2, frun->getTheta(), test1, mom);
     TGaxis::SetMaxDigits(3);
 
     { // cherenkov angle
@@ -985,7 +993,7 @@ void PrtLutReco::Run(int start, int end) {
       fLnDiffGr[fp2]->SetName(Form("s_%2.2f", sep_gr));
       fLnDiffGr[fp2]->SetTitle(Form("GR separation = %2.2f s.d.", sep_gr));
       TString lhtitle = "ln L(" + ft.lname(fp2) + ") - ln L(" + ft.lname(fp1) + ")";
-      if (fp1 == 0) lhtitle = "ln L(" + ft.lname(fp1) + ") - ln L(" + ft.lname(fp2) + ")";
+      //if (fp1 == 0) lhtitle = "ln L(" + ft.lname(fp1) + ") - ln L(" + ft.lname(fp2) + ")";
       fLnDiffGr[fp2]->GetXaxis()->SetTitle(lhtitle);
 
       fLnDiffGr[fp2]->Draw();
@@ -1008,6 +1016,9 @@ void PrtLutReco::Run(int start, int end) {
         // fLnDiffTi[fp1]->SetMarkerColor(kRed + 1);
         fLnDiffTi[fp1]->SetName(Form("s_%2.2f", sep_ti));
         fLnDiffTi[fp1]->Draw("E same");
+
+	ft.add_canvas("time_ti" + nidpip, 800, 400);
+	fHist_leadtime->Draw();    
       }
 
       ft.add_canvas("lh_nn" + nid, 800, 400);
@@ -1117,6 +1128,7 @@ void PrtLutReco::Run(int start, int end) {
       
       ft.add_canvas("time" + nid, 800, 400);
       fHist1->Draw();
+
     }
     
     TString filedir = fCorrFile;

@@ -198,7 +198,7 @@ PrtLutReco::PrtLutReco(TString infile, TString lutfile, TString pdffile, TString
   fCorrFile = infile + "_corr.root";
   for (int i = 0; i < fnpmt; i++) fCorr[i] = 0;
   if (!gSystem->AccessPathName(fCorrFile)) {
-    std::cout << "------- reading  " << fCorrFile << std::endl;
+    std::cout << "--- reading  " << fCorrFile << std::endl;
     int pmt;
     double corr, cspr[5];
     TChain ch;
@@ -218,21 +218,21 @@ PrtLutReco::PrtLutReco(TString infile, TString lutfile, TString pdffile, TString
                 << fSigma[3] << std::endl;
     }
   } else {
-    std::cout << "------- corr file not found  " << fCorrFile << std::endl;
+    std::cout << "--- corr file not found  " << fCorrFile << std::endl;
   }
 
   // read neural network model
 #ifdef AI
   fNNet = true;
   if (!gSystem->AccessPathName(fNNPath)) {
-    std::cout << "------- reading  " << fNNPath << std::endl;
+    std::cout << "--- reading  " << fNNPath << std::endl;
     fNNmodel = new cppflow::model(fNNPath.Data());
     for(auto s : (*fNNmodel).get_operations() ){
       std::cout << "s " << s << std::endl;   
     }  
   } else {
     fNNet = false;
-    std::cout << "------- neural net model not found  " << fNNPath << std::endl;
+    std::cout << "--- neural net model not found  " << fNNPath << std::endl;
   }
 #endif
 
@@ -583,7 +583,7 @@ void PrtLutReco::Run(int start, int end) {
     if (fMethod == 2 && fTimeImaging) { // time imaging
       if (tnph_ti[pid] > 1) hnph_ti[pid]->Fill(tnph_ti[pid]);
  
-      double sum_ti = 1.5 * (sumti2 - sumti1) + 30 * sum_nph;
+      double sum_ti = 1.5 * (sumti1 - sumti2) + 30 * sum_nph;
       if (fabs(sum_ti) > 0.1) fLnDiffTi[pid]->Fill(1.0 * sum_ti);
     }
 
@@ -756,7 +756,7 @@ void PrtLutReco::Run(int start, int end) {
         }
 
         if (fp1 == 0 && mom < 1.5) { /// handle tails
-          fLnDiffTi[fp2]->Fit("gaus", "S", "", m1 - 1.5 * s1, 500);
+          fLnDiffTi[fp2]->Fit("gaus", "S", "", -500, m1 + 1.5 * s1);
           ff = fLnDiffTi[fp2]->GetFunction("gaus");
           m2 = ff->GetParameter(1);
           s2 = ff->GetParameter(2);
@@ -776,7 +776,7 @@ void PrtLutReco::Run(int start, int end) {
           ff->SetLineColor(kBlack);
         }
         if (fp1 == 0 && mom < 1.5) { /// handle tails
-          fLnDiffTi[fp1]->Fit("gaus", "S", "", -500, m2 + 1.5 * s2);
+          fLnDiffTi[fp1]->Fit("gaus", "S", "", m2 - 1.5 * s2, 500);
           ff = fLnDiffTi[fp1]->GetFunction("gaus");
           m2 = ff->GetParameter(1);
           s2 = ff->GetParameter(2);

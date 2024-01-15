@@ -7,6 +7,7 @@ R__LOAD_LIBRARY(../build/libPrt.so)
 void draw_hp(TString infile = "../build/hits.root") {
 
   PrtTools t(infile);
+  double t1 = t.run()->getTest1();
 
   while (t.next() && t.i() < 10000) {
     for (auto hit : t.event()->getHits()) {
@@ -18,8 +19,10 @@ void draw_hp(TString infile = "../build/hits.root") {
       if (t.pid() == 2) t.fill_digi(pmt, pix);
     }
   }
+
   auto cdigi = t.draw_digi();
-  //auto cdigi = t.draw_digi(1, 0, new TCanvas("hp", "hp", 1200, 600));
+  // auto cdigi = t.draw_digi(1, 0, new TCanvas("hp", "hp", 1200, 600));
+  cdigi->SetName(Form("hp_%d",(int) t1));
   t.add_canvas(cdigi);
-  t.save_canvas("data/draw_hp", 0);
+  t.save_canvas("data/draw_hp_l3_w10", 0);
 }

@@ -102,7 +102,8 @@ PrtDetectorConstruction::PrtDetectorConstruction() : G4VUserDetectorConstruction
 
   if (fGeomType == 1 || fGeomType == 11) { // ePIC ECCE
     fNBoxes = 12;
-    fRadius = 700 + 0.5 * fBar[0]; // old = 729.6;
+    // fRadius = 700 + 0.5 * fBar[0]; // old = 729.6;
+    fRadius = 770.5;
     fNBar = 10;
     //fBar[2] = 1225; // BaBar bars
     //fBar[1] = 35;
@@ -244,7 +245,7 @@ G4VPhysicalVolume *PrtDetectorConstruction::Construct() {
   lBar = new G4LogicalVolume(gBar, BarMaterial, "lBar", 0, 0, 0);
   // wBar =  new G4PVPlacement(0,G4ThreeVector(0,0,0),lBar,"wBar", lDirc,false,0);
   double evprismhight = fPrizm[3]; // fBar[0]
-  double evprismlengh = 500; // Bar[2]
+  double evprismlengh = 500; // Bar[2] // fTest1
   G4Box *gExpVol = new G4Box("gExpVol", 0.5 * evprismhight, 0.5 * fBoxWidth, 0.5 * evprismlengh); 
   lExpVol = new G4LogicalVolume(gExpVol, BarMaterial, "lExpVol", 0, 0, 0);
 
